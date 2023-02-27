@@ -1,3 +1,5 @@
+package lab1;
+
 import java.util.function.Function;
 
 public class MyFunction implements Function<Double, Double> {

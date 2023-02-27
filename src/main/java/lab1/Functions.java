@@ -1,3 +1,5 @@
+package lab1;
+
 public class Functions {
     static private MyFunction f = new MyFunction();
     static final private double phi = (1 + Math.sqrt(5)) / 2;

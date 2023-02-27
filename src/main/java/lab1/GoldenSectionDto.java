@@ -1,3 +1,5 @@
+package lab1;
+
 import lombok.Builder;
 import lombok.Data;
 
