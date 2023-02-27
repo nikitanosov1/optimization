@@ -65,18 +65,18 @@ public class Functions {
         Double y1 = null;
         Double y2 = null;
         switch (state) {
-            case KNEW_X1:
+            case KNEW_X1 -> {
                 x1 = knewValue;
                 y1 = knewY;
                 x2 = a + (b - a) / phi;
                 y2 = f.apply(x2);
-                break;
-            case KNEW_X2:
+            }
+            case KNEW_X2 -> {
                 x2 = knewValue;
                 y2 = knewY;
                 x1 = b - (b - a) / phi;
                 y1 = f.apply(x1);
-                break;
+            }
         }
         System.out.println("x1 = " + x1 + " x2 = " + x2);
 
@@ -91,18 +91,74 @@ public class Functions {
     }
 
     public static FibbonachiDto fibbonachiSection(double a, double b, int n) {
-        int[] fibs = new int[n];
-        fibs[0] = 0;
+        // https://neerc.ifmo.ru/wiki/index.php?title=Метод_Фибоначчи
+        // https://studfile.net/preview/1518469/page:3/
+        int[] fibs = new int[n + 1];
+        fibs[0] = 1;
         fibs[1] = 1;
-        for (int i = 2; i < n; ++i) {
+        for (int i = 2; i <= n; ++i) {
             fibs[i] = fibs[i - 1] + fibs[i - 2];
         }
 
-        n -= 1;
-        double x1 = a + fibs[n] * (b - a) / fibs[n + 2];
-        double x2 = a + fibs[n + 1] * (b - a) / fibs[n + 2];
+        double x1 = a + fibs[n - 2] * (b - a) / fibs[n];
+        double x2 = b - fibs[n - 2] * (b - a) / fibs[n];
 
-        
+        double y1 = f.apply(x1);
+        double y2 = f.apply(x2);
 
+        if (y1 < y2) {
+            b = x2;
+        } else {
+            a = x1;
+        }
+
+        FibbonachiDto dto = null;
+        if (y1 > y2) {
+            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n, fibs);
+        } else {
+            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n, fibs);
+        }
+        return dto;
+    }
+
+    static private FibbonachiDto fibbonachiSectionRecursion(double a, double b, KnewState state, double knewX, double knewY, int n, int[] fibs) {
+        System.out.println(a + " " + b + " " + state + " " + knewX);
+        if (n <= 1) {
+            return FibbonachiDto.builder()
+                    .minX((a + b) / 2)
+                    .functionValueInMinX(f.apply((a + b) / 2))
+                    .eps((b - a) / 2)
+                    .count(0)
+                    .build();
+        }
+
+        FibbonachiDto dto;
+        Double x1 = null;
+        Double x2 = null;
+        Double y1 = null;
+        Double y2 = null;
+
+        switch (state) {
+            case KNEW_X1 -> {
+                x1 = knewX;
+                y1 = knewY;
+                x2 = b - fibs[n - 2] * (b - a) / fibs[n];
+                y2 = f.apply(x2);
+            }
+            case KNEW_X2 -> {
+                x2 = knewX;
+                y2 = knewY;
+                x1 = a + fibs[n - 2] * (b - a) / fibs[n];
+                y1 = f.apply(x1);
+            }
+        }
+
+        if (y1 < y2) {
+            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 1, fibs);
+        } else {
+            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n - 1, fibs);
+        }
+        dto.setCount(dto.getCount() + 1);
+        return dto;
     }
 }
