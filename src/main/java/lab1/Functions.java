@@ -46,6 +46,7 @@ public class Functions {
         } else {
             dto = goldenSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, eps);
         }
+        dto.setCountOfCalc(dto.getCountOfCalc() + 2);
         return dto;
     }
 
@@ -57,7 +58,7 @@ public class Functions {
                     .functionValueInMinX(f.apply((a + b) / 2))
                     .eps((b - a) / 2)
                     .recursionDeep(0)
-                    .countOfCalc(0)
+                    .countOfCalc(1)
                     .build();
         }
 
@@ -116,21 +117,23 @@ public class Functions {
 
         FibbonachiDto dto = null;
         if (y1 > y2) {
-            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n, fibs);
+            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n - 2, fibs);
         } else {
-            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n, fibs);
+            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 2, fibs);
         }
+        dto.setCount(dto.getCount() + 2);
         return dto;
     }
 
     static private FibbonachiDto fibbonachiSectionRecursion(double a, double b, KnewState state, double knewX, double knewY, int n, int[] fibs) {
-        System.out.println(a + " " + b + " " + state + " " + knewX);
+        //System.out.println(a + " " + b + " " + state + " " + knewX);
+        System.out.println(b - a);
         if (n <= 1) {
             return FibbonachiDto.builder()
                     .minX((a + b) / 2)
                     .functionValueInMinX(f.apply((a + b) / 2))
                     .eps((b - a) / 2)
-                    .count(0)
+                    .count(1)
                     .build();
         }
 
@@ -154,7 +157,6 @@ public class Functions {
                 y1 = f.apply(x1);
             }
         }
-
         if (y1 < y2) {
             dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 1, fibs);
         } else {
