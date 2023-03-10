@@ -1,10 +1,11 @@
 package lab1;
 
+import java.util.function.Function;
+
 public class Functions {
-    static private MyFunction f = new MyFunction();
     static final private double phi = (1 + Math.sqrt(5)) / 2;
 
-    public static DichotomieDto dichotomie(double l, double r, double eps, double delta) {
+    public static DichotomieDto dichotomie(double l, double r, double eps, double delta, Function<Double, Double> f) {
         //System.out.println(l + " " + r + " " + eps);
         if (r - l < 2 * delta) {
             return DichotomieDto.builder()
@@ -25,15 +26,15 @@ public class Functions {
 
         DichotomieDto dich;
         if (funInA < funInB) {
-            dich = dichotomie(l, newR, eps, delta);
+            dich = dichotomie(l, newR, eps, delta, f);
         } else {
-            dich = dichotomie(newL, r, eps, delta);
+            dich = dichotomie(newL, r, eps, delta, f);
         }
         dich.setCount(dich.getCount() + 2);
         return dich;
     }
 
-    public static GoldenSectionDto goldenSection(double a, double b, double eps) {
+    public static GoldenSectionDto goldenSection(double a, double b, double eps, Function<Double, Double> f) {
         double x1 = b - (b - a) / phi;
         double x2 = a + (b - a) / phi;
 
@@ -42,15 +43,15 @@ public class Functions {
 
         GoldenSectionDto dto = null;
         if (y1 > y2) {
-            dto = goldenSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, eps);
+            dto = goldenSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, eps, f);
         } else {
-            dto = goldenSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, eps);
+            dto = goldenSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, eps, f);
         }
         dto.setCountOfCalc(dto.getCountOfCalc() + 2);
         return dto;
     }
 
-    static private GoldenSectionDto goldenSectionRecursion(double a, double b, KnewState state, double knewValue, double knewY, double eps) {
+    static private GoldenSectionDto goldenSectionRecursion(double a, double b, KnewState state, double knewValue, double knewY, double eps, Function<Double, Double> f) {
         System.out.println(a + " " + b + " " + state + " " + knewValue);
         if (b - a < 2 * eps) {
             return GoldenSectionDto.builder()
@@ -84,16 +85,16 @@ public class Functions {
         System.out.println("x1 = " + x1 + " x2 = " + x2);
 
         if (y1 < y2) {
-            dto = goldenSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, eps);
+            dto = goldenSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, eps, f);
         } else {
-            dto = goldenSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, eps);
+            dto = goldenSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, eps, f);
         }
         dto.setRecursionDeep(dto.getRecursionDeep() + 1);
         dto.setCountOfCalc(dto.getCountOfCalc() + 1);
         return dto;
     }
 
-    public static FibbonachiDto fibbonachiSection(double a, double b, int n) {
+    public static FibbonachiDto fibbonachiSection(double a, double b, int n, Function<Double, Double> f) {
         // https://neerc.ifmo.ru/wiki/index.php?title=Метод_Фибоначчи
         // https://studfile.net/preview/1518469/page:3/
         int[] fibs = new int[n + 1];
@@ -117,15 +118,15 @@ public class Functions {
 
         FibbonachiDto dto = null;
         if (y1 > y2) {
-            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n - 2, fibs);
+            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n - 2, fibs, f);
         } else {
-            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 2, fibs);
+            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 2, fibs, f);
         }
         dto.setCount(dto.getCount() + 2);
         return dto;
     }
 
-    static private FibbonachiDto fibbonachiSectionRecursion(double a, double b, KnewState state, double knewX, double knewY, int n, int[] fibs) {
+    static private FibbonachiDto fibbonachiSectionRecursion(double a, double b, KnewState state, double knewX, double knewY, int n, int[] fibs, Function<Double, Double> f) {
         //System.out.println(a + " " + b + " " + state + " " + knewX);
         System.out.println(b - a);
         if (n <= 1) {
@@ -158,9 +159,9 @@ public class Functions {
             }
         }
         if (y1 < y2) {
-            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 1, fibs);
+            dto = fibbonachiSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, n - 1, fibs, f);
         } else {
-            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n - 1, fibs);
+            dto = fibbonachiSectionRecursion(x1, b, KnewState.KNEW_X1, x2, y2, n - 1, fibs, f);
         }
         dto.setCount(dto.getCount() + 1);
         return dto;
