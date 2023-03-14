@@ -5,23 +5,7 @@ public class MyFunction {
     private double x0 = 5;
     private double y0 = 2;
 
-    public double getX0() {
-        return x0;
-    }
-
-    public double getY0() {
-        return y0;
-    }
-
-    /*
-        double apply(double x, double y, double z) {
-            return 2 * Math.pow(x * Math.cos(alpha) + y * Math.sin(alpha) + x0, 2)
-                    + 3 * Math.pow(-x * Math.sin(alpha) + y * Math.cos(alpha) + y0, 2)
-                    + Math.pow(z, 4);
-        }
-        */
     double apply(double x, double y, double z) {
-        System.out.println("x = " + x + " y = " + y + " z = " + z);
         return 2 * Math.pow((x - x0) * Math.cos(alpha) + (y - y0) * Math.sin(alpha), 2)
                 + 3 * Math.pow((y - y0) * Math.cos(alpha) - (x - x0) * Math.sin(alpha), 2)
                 + Math.pow(z, 4);

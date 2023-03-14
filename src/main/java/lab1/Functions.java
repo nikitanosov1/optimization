@@ -6,8 +6,8 @@ public class Functions {
     static final private double phi = (1 + Math.sqrt(5)) / 2;
 
     public static DichotomieDto dichotomie(double l, double r, double eps, double delta, Function<Double, Double> f) {
-        //System.out.println(l + " " + r + " " + eps);
-        if (r - l < 2 * delta) {
+        System.out.println(l + " " + r);
+        if (r - l < 2 * delta) {;
             return DichotomieDto.builder()
                     .minX((l + r) / 2)
                     .functionValueInMinX(f.apply((l + r) / 2))
@@ -23,7 +23,7 @@ public class Functions {
 
         double funInA = f.apply(newL);
         double funInB = f.apply(newR);
-
+        //System.out.println(l + " " + r + " funInA = " + funInA + " funInB = " + funInB);
         DichotomieDto dich;
         if (funInA < funInB) {
             dich = dichotomie(l, newR, eps, delta, f);

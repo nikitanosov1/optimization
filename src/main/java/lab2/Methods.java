@@ -1,12 +1,14 @@
 package lab2;
 
+import lab1.DichotomieDto;
 import lab1.Functions;
+import lab1.GoldenSectionDto;
 
 import java.util.Arrays;
 import java.util.function.Function;
 
 public class Methods {
-    public static double[] findMinimumInTheDirectionOfTheVector(MyFunction function, double[] startPoint, double[] direction) {
+    public static double[] findMinimumInTheDirectionOfTheVector(MyFunction function, double[] startPoint, double[] direction, double eps) {
         double lenOfDirection = calcNormOfVector(direction);
         double[] step = new double[]{
                 direction[0] / lenOfDirection,
@@ -55,9 +57,6 @@ public class Methods {
             step[2] *= 2;
         }
 
-        //System.out.println("aPoint = " + Arrays.toString(startPoint));
-        //System.out.println("bPoint = " + Arrays.toString(nextPoint));
-
         double[] vectorFromAtoB = new double[] {
                 nextPoint[0] - startPoint[0],
                 nextPoint[1] - startPoint[1],
@@ -74,9 +73,11 @@ public class Methods {
 
             return function.apply(x, y, z);
         };
-        double eps = Math.pow(10, -5);
-        double delta = Math.pow(10, -4);
-        double lenWhichGiveUsMinValueOfFunction = Functions.dichotomie(0.1, lengthVectorFromAToB, eps, delta, hintFunction).getMinX();
+
+        GoldenSectionDto goldenSection = Functions.goldenSection(0, lengthVectorFromAToB, eps, hintFunction);
+        double lenWhichGiveUsMinValueOfFunction = goldenSection.getMinX();
+        System.out.println("lenWhichGiveUsMinValueOfFunction = " + lenWhichGiveUsMinValueOfFunction);
+        System.out.println(goldenSection.getCountOfCalc());
 
         double x = (finalNextPoint[0] - startPoint[0]) / (lengthVectorFromAToB / lenWhichGiveUsMinValueOfFunction) + startPoint[0];
         double y = (finalNextPoint[1] - startPoint[1]) / (lengthVectorFromAToB / lenWhichGiveUsMinValueOfFunction) + startPoint[1];
