@@ -1,6 +1,5 @@
 package lab2;
 
-import lab1.DichotomieDto;
 import lab1.Functions;
 import lab1.GoldenSectionDto;
 
@@ -26,7 +25,6 @@ public class Methods {
             step[2] = -step[2];
         }
 
-
         double[] curPoint = new double[]{
                 startPoint[0],
                 startPoint[1],
@@ -41,7 +39,6 @@ public class Methods {
         double nextValue = function.apply(nextPoint);
 
         while (nextValue < curValue) {
-            System.out.println(Arrays.toString(nextPoint));
             curPoint = nextPoint;
             curValue = nextValue;
 
@@ -63,7 +60,6 @@ public class Methods {
                 nextPoint[2] - startPoint[2]
         };
         double lengthVectorFromAToB = calcNormOfVector(vectorFromAtoB);
-        //System.out.println("lengthVectorFromAToB " + lengthVectorFromAToB);
 
         double[] finalNextPoint = nextPoint;
         Function<Double, Double> hintFunction = (len) -> {
@@ -76,8 +72,6 @@ public class Methods {
 
         GoldenSectionDto goldenSection = Functions.goldenSection(0, lengthVectorFromAToB, eps, hintFunction);
         double lenWhichGiveUsMinValueOfFunction = goldenSection.getMinX();
-        System.out.println("lenWhichGiveUsMinValueOfFunction = " + lenWhichGiveUsMinValueOfFunction);
-        System.out.println(goldenSection.getCountOfCalc());
 
         double x = (finalNextPoint[0] - startPoint[0]) / (lengthVectorFromAToB / lenWhichGiveUsMinValueOfFunction) + startPoint[0];
         double y = (finalNextPoint[1] - startPoint[1]) / (lengthVectorFromAToB / lenWhichGiveUsMinValueOfFunction) + startPoint[1];
@@ -88,7 +82,7 @@ public class Methods {
         };
     }
 
-    private static double calcNormOfVector(double[] vector) {
+    public static double calcNormOfVector(double[] vector) {
         return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
     }
 }

@@ -52,7 +52,7 @@ public class Functions {
     }
 
     static private GoldenSectionDto goldenSectionRecursion(double a, double b, KnewState state, double knewValue, double knewY, double eps, Function<Double, Double> f) {
-        System.out.println(a + " " + b + " " + state + " " + knewValue);
+        // System.out.println(a + " " + b + " " + state + " " + knewValue);
         if (b - a < 2 * eps) {
             return GoldenSectionDto.builder()
                     .minX((a + b) / 2)
@@ -82,7 +82,6 @@ public class Functions {
                 y1 = f.apply(x1);
             }
         }
-        System.out.println("x1 = " + x1 + " x2 = " + x2);
 
         if (y1 < y2) {
             dto = goldenSectionRecursion(a, x2, KnewState.KNEW_X2, x1, y1, eps, f);
