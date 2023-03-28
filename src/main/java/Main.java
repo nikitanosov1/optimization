@@ -1,8 +1,4 @@
-import lab1.FibbonachiDto;
-import lab1.Functions;
-import lab2.Solution;
-
-import java.util.function.Function;
+import lab2_1.Solution;
 
 class Main {
     public static void main(String[] args) {

@@ -1,11 +1,9 @@
-package lab3;
+package lab2_2;
 
-import lab2.MyFunction;
+import lab2_1.MyFunction;
 
-import java.util.Arrays;
-
-import static lab2.Methods.calcNormOfVector;
-import static lab2.Methods.findMinimumInTheDirectionOfTheVector;
+import static lab2_1.Methods.calcNormOfVector;
+import static lab2_1.Methods.findMinimumInTheDirectionOfTheVector;
 
 public class Methods {
     public static double[] findGlobalMinimum(MyFunction function, double[] startPoint, double stepEps) {

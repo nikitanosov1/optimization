@@ -1,4 +1,4 @@
-package lab2;
+package lab2_1;
 
 public class MyFunction {
     private double alpha = Math.PI / 6;

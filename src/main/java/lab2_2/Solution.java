@@ -1,8 +1,8 @@
-package lab3;
+package lab2_2;
 
-import lab2.MyFunction;
+import lab2_1.MyFunction;
 
-import static lab3.Methods.findGlobalMinimum;
+import static lab2_2.Methods.findGlobalMinimum;
 
 public class Solution {
     public static void main(String[] args) {

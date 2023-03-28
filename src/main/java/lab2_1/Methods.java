@@ -1,9 +1,8 @@
-package lab2;
+package lab2_1;
 
 import lab1.Functions;
 import lab1.GoldenSectionDto;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 public class Methods {

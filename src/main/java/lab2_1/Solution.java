@@ -1,4 +1,4 @@
-package lab2;
+package lab2_1;
 
 public class Solution {
     public static void solve() {
