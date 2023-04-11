@@ -14,13 +14,5 @@ public class Solution {
         System.out.println("x = " + minimum[0]);
         System.out.println("y = " + minimum[1]);
         System.out.println("z = " + minimum[2]);
-
-//        double[][] matrix = new double[][] {
-//                new double[]{2, 5, 7},
-//                new double[]{6, 3, 4},
-//                new double[]{5, -2, -3},
-//        };
-//        double[][] result = calculateTheInverseMatrix(matrix);
-//        Arrays.stream(result).forEach(arr -> System.out.println(Arrays.toString(arr)));
     }
 }
