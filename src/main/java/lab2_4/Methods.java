@@ -9,7 +9,10 @@ public class Methods {
     public static double[] findGlobalMinimumWithNewton(MyFunction function, double[] startPoint, double stepEps) {
         double[] curPoint = startPoint;
         double step = Double.MAX_VALUE;
+
+        int temp = 0;
         while (step > stepEps) {
+            temp++;
             double[][] inverseMatrix = calculateTheInverseMatrix(function.calcMatrixOfDoubleDerivatives(curPoint));
             double[] gradient = function.calcGradientVector(curPoint);
 
@@ -28,6 +31,7 @@ public class Methods {
             curPoint = nextPoint;
             step = calcNormOfVector(stepVector);
         }
+        System.out.println(temp);
         return curPoint;
     }
 }
