@@ -19,7 +19,6 @@ public class Methods {
             };
 
             curPoint = result;
-            // System.out.println(Arrays.toString(curPoint));
             step = calcNormOfVector(stepVector);
         }
         return curPoint;

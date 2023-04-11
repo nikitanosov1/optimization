@@ -61,6 +61,7 @@ public class MyFunction {
         };
         return matrix;
     }
+
     public double[][] calcMatrixOfDoubleDerivatives(double[] vector) {
         double x = vector[0];
         double y = vector[1];

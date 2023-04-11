@@ -2,6 +2,8 @@ package lab2_4;
 
 import lab2_1.MyFunction;
 
+import java.util.Arrays;
+
 import static util.Util.calcNormOfVector;
 import static util.Util.calculateTheInverseMatrix;
 
@@ -10,9 +12,7 @@ public class Methods {
         double[] curPoint = startPoint;
         double step = Double.MAX_VALUE;
 
-        int temp = 0;
         while (step > stepEps) {
-            temp++;
             double[][] inverseMatrix = calculateTheInverseMatrix(function.calcMatrixOfDoubleDerivatives(curPoint));
             double[] gradient = function.calcGradientVector(curPoint);
 
@@ -31,7 +31,6 @@ public class Methods {
             curPoint = nextPoint;
             step = calcNormOfVector(stepVector);
         }
-        System.out.println(temp);
         return curPoint;
     }
 }
