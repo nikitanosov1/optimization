@@ -2,8 +2,6 @@ package lab2_4;
 
 import lab2_1.MyFunction;
 
-import java.util.Arrays;
-
 import static util.Util.calcNormOfVector;
 import static util.Util.calculateTheInverseMatrix;
 
